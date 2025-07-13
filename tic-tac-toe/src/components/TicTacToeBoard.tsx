@@ -35,7 +35,11 @@ const renderSquare = (index: number) => (
   return (
     <div className="flex flex-col items-center">
       <div className="grid grid-cols-3 gap-1">
-        {board.map((_, index) => renderSquare(index))}
+        {board.map((_, index) => (
+          <React.Fragment key={index}>
+            {renderSquare(index)}
+          </React.Fragment>
+        ))}
       </div>
       <div className="mt-4">
         {winner ? (
