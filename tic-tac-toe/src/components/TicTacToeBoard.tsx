@@ -16,16 +16,15 @@ const TicTacToeBoard: React.FC = () => {
     setIsXNext(!isXNext);
   };
 
-const renderSquare = (index: number) => (
-  <button
-    key={index} // ✅ Add this line
-    className="w-16 h-16 border-2 border-gray-500 text-2xl font-bold"
-    onClick={() => handleClick(index)}
-  >
-    {board[index]}
-  </button>
-);
-
+  const renderSquare = (index: number) => (
+    <button
+      key={index}
+      className="w-40 h-40 border-4 border-gray-700 text-7xl font-bold flex items-center justify-center bg-white hover:bg-gray-100 transition"
+      onClick={() => handleClick(index)}
+    >
+      {board[index]}
+    </button>
+  );
 
   const resetGame = () => {
     setBoard(Array(9).fill(null));
@@ -33,36 +32,40 @@ const renderSquare = (index: number) => (
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="grid grid-cols-3 gap-1">
-        {board.map((_, index) => (
-          <React.Fragment key={index}>
-            {renderSquare(index)}
-          </React.Fragment>
-        ))}
+    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="grid grid-cols-3 gap-4">
+        {board.map((_, index) => renderSquare(index))}
       </div>
-      <div className="mt-4">
+
+      <div className="mt-6">
         {winner ? (
-          <h2 className="text-xl font-bold">{`Winner: ${winner}`}</h2>
+          <h2 className="text-2xl font-bold text-green-600">{`Winner: ${winner}`}</h2>
         ) : (
-          <h2 className="text-xl font-bold">{`Next Player: ${isXNext ? 'X' : 'O'}`}</h2>
+          <h2 className="text-2xl font-bold">{`Next Player: ${isXNext ? 'X' : 'O'}`}</h2>
         )}
       </div>
+
       <button
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
+        className="mt-6 px-6 py-3 bg-blue-500 text-white rounded text-lg font-semibold hover:bg-blue-600 transition"
         onClick={resetGame}
       >
         Reset Game
       </button>
+
+      <p className="text-sm text-gray-600 mt-8 text-center w-full">
+        © 2025 Tic Tac Toe. All rights reserved.
+      </p>
     </div>
   );
 };
+
 
 /**
  * Determines the winner of the Tic-Tac-Toe game based on the current board state.
  * @param squares - An array representing the board, where each element is 'X', 'O', or null.
  * @returns The winner ('X' or 'O') if there is one, otherwise null.
  */
+
 const calculateWinner = (squares: Array<string | null>): string | null => {
   const lines = [
     [0, 1, 2],
